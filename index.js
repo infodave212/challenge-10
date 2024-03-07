@@ -30,44 +30,52 @@ async function promptUser() {
   ]);
 
   // Generate SVG content based on user responses
-  const svgContent = generateSVG(userResponses);
+  const svg = generateSVG(userResponses);
 
   // Write the SVG file
-  fs.writeFileSync('logo.svg', svgContent);
+  fs.writeFileSync('logo.svg', svg);
 
   console.log('Generated logo.svg');
 }
 
 // Function to generate SVG content
 function generateSVG(data) {
-  const draw = SVG().size(300, 200);
+ 
 
   // Create shape based on user choice
   let shape;
   switch (data.shape) {
     case 'circle':
-      shape = draw.circle(100);
+      shape = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300" height="200">
+
+      <circle cx="150" cy="100" r="80" fill="${data.shapeColor}"/>
+    
+      <text x="150" y="125" font-size="60" text-anchor="middle" fill="${data.textColor}">${data.text}</text>
+    
+    </svg>`
       break;
     case 'triangle':
-      shape = draw.polygon('50,0 0,100 100,100');
+      shape = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300" height="200">
+      <polygon width="300" height="200" points="150, 18 244, 182 56, 182" fill="${data.shapeColor}" />' 
+      <text x="150" y="125" font-size="60" text-anchor="middle" fill="${data.textColor}">${data.text}</text>
+    
+    </svg>
+      `
       break;
     case 'square':
-      shape = draw.rect(100, 100);
+      shape = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300" height="200">
+      <rect width="300" height="200" x="10" y="10" stroke="black" fill="${data.shapeColor}" stroke-width="5"/>
+      <text x="150" y="125" font-size="60" text-anchor="middle" fill="${data.textColor}">${data.text}</text>
+    
+    </svg>
+      `
       break;
   }
 
   // Set shape color
-  shape.fill(data.shapeColor);
+  
 
-  // Add text to the shape
-  const text = draw.text(data.text).fill(data.textColor).move(50, 50).font({ size: 24 });
-
-  // Combine shape and text
-  const group = draw.group();
-  group.add(shape);
-  group.add(text);
-
-  return draw.svg();
+  return shape
 }
 
 // Run the application
