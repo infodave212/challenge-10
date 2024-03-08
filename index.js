@@ -64,7 +64,7 @@ function generateSVG(data) {
       break;
     case 'square':
       shape = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300" height="200">
-      <rect width="300" height="200" x="10" y="10" stroke="black" fill="${data.shapeColor}" stroke-width="5"/>
+      <rect width="300" height="200" fill="${data.shapeColor}"/>
       <text x="150" y="125" font-size="60" text-anchor="middle" fill="${data.textColor}">${data.text}</text>
     
     </svg>
