@@ -1,6 +1,6 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
-const SVG = require('svg.js');
+const SVG = require('./svg.js');
 
 // Function to prompt user for logo information
 async function promptUser() {
